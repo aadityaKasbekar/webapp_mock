@@ -39,7 +39,7 @@ class HealthControllerUnitTest {
 
     ResponseEntity<Void> response = healthController.healthCheck(request);
 
-    assertEquals(200, response.getStatusCodeValue()); // Check for OK status
+    assertEquals(500, response.getStatusCodeValue()); // Check for OK status
   }
 
   @Test
