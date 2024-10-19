@@ -60,4 +60,4 @@ jobs:
 
       - name: Run SELECT 1 as new user
         run: |
-          mysql -u ${{ secrets.DB_USERNAME }} -p ${{ secrets.AADITYA_USER_PASSWORD }} -e "SELECT 1;"
+          mysql -u ${{ secrets.DB_USERNAME }} -p ${{ secrets.DB_USER_PASSWORD }} -e "SELECT 1;"
