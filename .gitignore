@@ -1,24 +1,115 @@
-# Compiled class file
+
+# --------------------------------------
+# General OS-specific ignores
+# --------------------------------------
+
+# macOS-specific files
+.DS_Store            # Stores custom folder attributes
+.AppleDouble          # Resource fork files
+.LSOverride           # Finder preference files
+
+# Windows-specific files
+Thumbs.db            # Image thumbnails
+ehthumbs.db          # Windows Explorer file cache
+Desktop.ini          # Stores folder customizations
+$RECYCLE.BIN/        # Windows recycle bin folder
+*.lnk                # Windows shortcut files
+
+# --------------------------------------
+# Maven-related ignores
+# --------------------------------------
+
+# Maven build output directories
+/target
+
+# Maven local repository (optional, usually stored outside of project)
+/.mvn/
+
+# Maven wrapper files
+.mvn/wrapper/maven-wrapper.jar
+
+# --------------------------------------
+# Java-specific ignores
+# --------------------------------------
+
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
 
-# BlueJ files
-*.ctxt
+# Temporary files
+*.tmp
+*.swp
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
+# Application-specific output
 *.war
-*.nar
+*.jar
 *.ear
-*.zip
-*.tar.gz
-*.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Environment-specific properties (you might store these in external config services or environment variables)
+resources/
+*.env
+*.properties
+
+application.yml
+
+# --------------------------------------
+# IntelliJ IDEA-related ignores
+# --------------------------------------
+
+# Project-specific files
+.idea/
+
+# Module-specific files
+*.iml
+
+# IntelliJ-generated code style and workspace settings
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/libraries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+
+# Ignore IntelliJ compiled files and output
+out/
+
+# --------------------------------------
+# VS Code-related ignores
+# --------------------------------------
+
+# VS Code settings directory
+.vscode/
+
+# Extensions and temporary workspace files
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# --------------------------------------
+# Others
+# --------------------------------------
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# System files for working copies
+*.bak
+*.swp
+*.swo
+*.orig
+*~
+*.lock
+
+# Eclipse project files (if any other IDEs are used)
+.project
+.classpath
+.settings/
+.DS_Store
