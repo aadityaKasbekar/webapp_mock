@@ -60,5 +60,9 @@ jobs:
         run: |
           mysql -u ${{ secrets.DB_USERNAME }} -p${{ secrets.DB_USER_PASSWORD }} -e "SHOW DATABASES;"
 
+      - name: Exposing MySQL Port
+        run: |
+          systemctl status mysql
+
       - name: Running Spring Boot Application
         run: mvn spring-boot:run --file pom.xml
