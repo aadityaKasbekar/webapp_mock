@@ -20,7 +20,7 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
-          MYSQL_DATABASE: CloudAppDB
+          MYSQL_DATABASE: test_db
           MYSQL_USER: aadityaKasbekar
           MYSQL_PASSWORD: REclassic@3504792
 
