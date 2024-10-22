@@ -14,7 +14,7 @@
 #   6. Run `packer init`: Initializes the Packer environment with the specified template.
 #   7. Run `packer fmt`: Formats the Packer template for consistency.
 #   8. Run `packer validate`: Validates the Packer template for any syntax or configuration issues.
-#   9. Run `packer build`: Builds the AMI using the Packer template.
+#   9. Run `packer build`: Builds the AMI using the Packer template. wow
 
 name: Building AMI
 on:
