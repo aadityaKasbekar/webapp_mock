@@ -18,13 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "Set up archived Oracle JDK 21.0.1"
-        uses: oracle-actions/setup-java@v1
-        with:
-          website: oracle.com
-          release: 21
-          version: 21.0.1
-
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
         id: setup
