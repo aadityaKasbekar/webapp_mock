@@ -71,15 +71,15 @@ build {
   sources = ["source.amazon-ebs.ubuntu"]
 
   provisioner "shell" {
-    script = "shellScripts/updateOS.sh"
+    script = "./shellScripts/updateOS.sh"
   }
 
   provisioner "shell" {
-    script = "shellScripts/appDIRCreation.sh"
+    script = "./shellScripts/appDirCreation.sh"
   }
 
   provisioner "file" {
-    sources     = ["target/movieRetirvalWebApp-0.0.1-SNAPSHOT.jar"]
+    sources     = ["./target/movieRetirvalWebApp-0.0.1-SNAPSHOT.jar"]
     destination = "/tmp/"
   }
 
@@ -89,20 +89,20 @@ build {
   # }
 
   provisioner "file" {
-    sources     = ["shellScripts/cloud-native-app.service"]
+    sources     = ["./shellScripts/cloud-native-app.service"]
     destination = "/tmp/"
   }
 
   provisioner "shell" {
-    script = "shellScripts/jdkSetup.sh"
+    script = "./shellScripts/jdkSetup.sh"
   }
 
   provisioner "shell" {
-    script = "shellScripts/mysqlSetup.sh"
+    script = "./shellScripts/mysqlSetup.sh"
   }
 
   provisioner "shell" {
-    script = "shellScripts/appSetup.sh"
+    script = "./shellScripts/appSetup.sh"
   }
 
   post-processor "manifest" {
