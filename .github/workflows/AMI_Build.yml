@@ -25,6 +25,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 env:
   PRODUCT_VERSION: "1.11.2"
 
@@ -99,7 +102,8 @@ jobs:
 
       - name: Run `packer validate`
         id: validate
-        run: "packer validate cloudNativeAppAMI.pkr.hcl"
+        run: |
+          packer validate -var "subnet_id=${{ secrets.SUBNET_ID }}" cloudNativeAppAMI.pkr.hcl
 
       - name: Run `packer build`
         id: build
