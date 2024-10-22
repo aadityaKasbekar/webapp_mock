@@ -104,4 +104,5 @@ jobs:
 
       - name: Run `packer build`
         id: build
-        run: "packer build cloudNativeAppAMI.pkr.hcl"
+        run: |
+          packer build -var "subnet_id=${{ secrets.SUBNET_ID }}" cloudNativeAppAMI.pkr.hcl
