@@ -1,10 +1,15 @@
-# This workflow builds a Java Spring Boot application using Maven with Oracle JDK 21.0.1.
-# It is triggered by pull requests on the main branch.
-# The workflow performs the following steps:
-# - Checks out the repository code
-# - Sets up Oracle JDK 21.0.1
-# - Sets application properties for building using environment variables
-# - Runs Maven to build and install the Spring Boot application
+# Summary:
+# This workflow is named "Java CI Building with Maven" and is responsible for building a Java application using Maven.
+#
+# Trigger Events:
+# - It is triggered on pull requests to the 'main' branch.
+#
+# Jobs:
+# - The job "Build Java Application" runs on an Ubuntu machine and performs the following steps:
+#   1. Checkout code: Pulls the latest code from the repository.
+#   2. Setup Oracle JDK: Installs Oracle JDK 21.0.1.
+#   3. Set Application Properties: Configures environment variables from secret properties for the Spring Boot application.
+#   4. Build Spring Boot Application: Builds the Spring Boot application using Maven.
 
 name: Java CI Building with Maven
 
@@ -14,7 +19,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build Java Application
     runs-on: ubuntu-latest # Use the latest Ubuntu runner for the job
 
     steps:

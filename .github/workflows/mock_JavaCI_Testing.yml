@@ -1,31 +1,36 @@
-# This workflow tests a Java project using Maven with Oracle JDK 21.0.1.
-# It is triggered by pull requests on the main branch.
-# The workflow performs the following steps:
-# - Checks out the repository code
-# - Sets up Oracle JDK 21.0.1
-# - Sets application properties for testing using environment variables
-# - Runs Maven to execute test cases
+# Summary:
+# This workflow is named "Java CI Testing with Maven" and is responsible for running test cases for a Java application using Maven.
+#
+# Trigger Events:
+# - It is triggered on pull requests to the 'main' branch.
+#
+# Jobs:
+# - The job "Test Java Application" runs on an Ubuntu machine and performs the following steps:
+#   1. Checkout code: Pulls the latest code from the repository.
+#   2. Setup Oracle JDK: Installs Oracle JDK 21.0.1.
+#   3. Set Application Properties for Testing: Configures environment variables from secret properties for the Spring Boot application during testing.
+#   4. Run Test Cases: Executes the test cases defined in the Maven project.
 
 name: Java CI Testing with Maven
 
 on:
   pull_request:
-    branches: ["main"] # Trigger workflow on pull request to main branch
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
 
 jobs:
   test:
-    name: Test
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner for the job
+    name: Test Java Application
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Check out the repository code
+        uses: actions/checkout@v4
 
       - name: Set up Oracle JDK 21.0.1
-        uses: oracle-actions/setup-java@v1 # Set up Oracle JDK 21.0.1
+        uses: oracle-actions/setup-java@v1
         with:
           website: oracle.com
           release: 21
@@ -44,4 +49,4 @@ jobs:
           echo "logging.level.com.cloudcomputing.movieRetrievalWebApp=${{ secrets.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP }}" >> $GITHUB_ENV
 
       - name: Run Test Cases
-        run: mvn test --file pom.xml # Run Maven tests using the specified POM file
+        run: mvn test --file pom.xml

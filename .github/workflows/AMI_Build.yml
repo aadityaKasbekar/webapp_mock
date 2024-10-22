@@ -1,6 +1,25 @@
+# Summary:
+# This workflow is named "Building AMI" and is responsible for building an Amazon Machine Image (AMI) after a pull request is merged.
+#
+# Trigger Events:
+# - It is triggered when a pull request to the 'main' branch is merged.
+#
+# Jobs:
+# - The job "Building AMI" runs on an Ubuntu machine and performs the following steps:
+#   1. Checkout code: Pulls the latest code from the repository.
+#   2. Setup Oracle JDK: Installs Oracle JDK 21.0.1.
+#   3. Set Application Properties: Configures environment variables from secret properties for the Spring Boot application.
+#   4. Build Spring Boot Application: Builds the Spring Boot application using Maven.
+#   5. Setup Packer: Installs the specified version of Packer (1.11.2).
+#   6. Run `packer init`: Initializes the Packer environment with the specified template.
+#   7. Run `packer fmt`: Formats the Packer template for consistency.
+#   8. Run `packer validate`: Validates the Packer template for any syntax or configuration issues.
+#   9. Run `packer build`: Builds the AMI using the Packer template.
+
 name: Building AMI
 on:
   pull_request:
+    branches: [main]
     types: [closed]
 
 env:
@@ -61,5 +80,5 @@ jobs:
         run: "packer validate cloudNativeAppAMI.pkr.hcl"
 
       - name: Run `packer build`
-        id: validate
+        id: build
         run: "packer build cloudNativeAppAMI.pkr.hcl"
