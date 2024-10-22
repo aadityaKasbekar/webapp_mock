@@ -45,4 +45,4 @@ jobs:
           echo "logging.level.root=${{ secrets.LOGGING_LEVEL_ROOT }}" >> $GITHUB_ENV
 
       - name: Building Spring Boot Application
-        run: mvn clean install --file pom.xml # Run Maven to clean, build, and install the Spring Boot application
+        run: mvn clean install --file pom.xml

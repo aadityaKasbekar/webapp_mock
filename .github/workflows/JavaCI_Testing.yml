@@ -1,47 +1,47 @@
-# This workflow tests a Java project using Maven with Oracle JDK 21.0.1.
-# It is triggered by pull requests on the main branch.
-# The workflow performs the following steps:
-# - Checks out the repository code
-# - Sets up Oracle JDK 21.0.1
-# - Sets application properties for testing using environment variables
-# - Runs Maven to execute test cases
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
-name: Java CI Testing with Maven
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
 
 on:
   pull_request:
-    branches: ["main"] # Trigger workflow on pull request to main branch
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
-  # workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-  test:
+  build:
     name: Test
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner for the job
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Check out the repository code
+        uses: actions/checkout@v4
 
-      - name: Set up Oracle JDK 21.0.1
-        uses: oracle-actions/setup-java@v1 # Set up Oracle JDK 21.0.1
+      - name: "Set up archived Oracle JDK 21.0.1"
+        uses: oracle-actions/setup-java@v1
         with:
           website: oracle.com
           release: 21
           version: 21.0.1
 
-      - name: Set Applicatioon Properties for Testing
+      - name: Set Applicatioon Properties
         run: |
-          echo "spring.datasource.url=${{ secrets.SPRING_DATASOURCE_URL_TEST }}" >> $GITHUB_ENV
-          echo "spring.datasource.driver-class-name=${{ secrets.SPRING_DATASOURCE_DRIVER_CLASS_NAME_TEST }}" >> $GITHUB_ENV
-          echo "spring.datasource.username=${{ secrets.SPRING_DATASOURCE_USERNAME_TEST }}" >> $GITHUB_ENV
-          echo "spring.datasource.password=${{ secrets.SPRING_DATASOURCE_PASSWORD_TEST }}" >> $GITHUB_ENV
+          echo "spring.datasource.url=${{ secrets.SPRING_DATASOURCE_URL }}" >> $GITHUB_ENV
+          echo "spring.datasource.driver-class-name=${{ secrets.SPRING_DATASOURCE_DRIVER_CLASS_NAME }}" >> $GITHUB_ENV
+          echo "spring.datasource.username=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
+          echo "spring.datasource.password=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
           echo "spring.jpa.database-platform=${{ secrets.SPRING_JPA_DATABASE_PLATFORM }}" >> $GITHUB_ENV
-          echo "spring.jpa.hibernate.ddl-auto=${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO_TEST }}" >> $GITHUB_ENV
-          echo "spring.jpa.show-sql=${{ secrets.SPRING_JPA_SHOW_SQL_TEST }}" >> $GITHUB_ENV
-          echo "logging.level.org.springframework=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_TEST }}" >> $GITHUB_ENV
+          echo "spring.jpa.hibernate.ddl-auto=${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> $GITHUB_ENV
+          echo "spring.jpa.show-sql=${{ secrets.SPRING_JPA_SHOW_SQL }}" >> $GITHUB_ENV
+          echo "logging.level.org.springframework=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }}" >> $GITHUB_ENV
           echo "logging.level.com.cloudcomputing.movieRetrievalWebApp=${{ secrets.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP }}" >> $GITHUB_ENV
 
       - name: Run Test Cases
-        run: mvn test --file pom.xml # Run Maven tests using the specified POM file
+        run: mvn test --file pom.xml
