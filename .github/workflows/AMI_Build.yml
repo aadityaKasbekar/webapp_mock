@@ -1,6 +1,7 @@
 name: Building AMI
 on:
   pull_request:
+    branches: [main]
     types: [closed]
 
 env:
@@ -61,5 +62,5 @@ jobs:
         run: "packer validate cloudNativeAppAMI.pkr.hcl"
 
       - name: Run `packer build`
-        id: validate
+        id: build
         run: "packer build cloudNativeAppAMI.pkr.hcl"

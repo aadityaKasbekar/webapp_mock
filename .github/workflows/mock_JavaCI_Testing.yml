@@ -17,7 +17,7 @@ on:
 
 jobs:
   test:
-    name: Test
+    name: Test Java Application
     runs-on: ubuntu-latest # Use the latest Ubuntu runner for the job
 
     steps:

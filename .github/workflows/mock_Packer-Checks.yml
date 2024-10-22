@@ -11,7 +11,7 @@ env:
 
 jobs:
   packer-check:
-    name: Packer Check.
+    name: Packer Check
     runs-on: ubuntu-latest
 
     steps:
