@@ -57,15 +57,15 @@ jobs:
           echo "spring.datasource.url=${{ secrets.SPRING_DATASOURCE_URL }}" >> src/main/resources/application.properties
           echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/main/resources/application.properties
           echo "spring.datasource.password=${{ secrets.DB_USER_PASSWORD }}" >> src/main/resources/application.properties
-          echo "spring.datasource.driver-class-name={{ vars.SPRING_DATASOURCE_DRIVER_CLASS_NAME }}" >> src/main/resources/application.properties
-          echo "spring.jpa.hibernate.ddl-auto={{ vars.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> src/main/resources/application.properties
+          echo "spring.datasource.driver-class-name=${{ vars.SPRING_DATASOURCE_DRIVER_CLASS_NAME }}" >> src/main/resources/application.properties
+          echo "spring.jpa.hibernate.ddl-auto=${{ vars.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> src/main/resources/application.properties
           echo "spring.jpa.show-sql=${{ vars.SPRING_JPA_SHOW_SQL }}" >> src/main/resources/application.properties
           echo "logging.level.com.cloudcomputing.movieRetrievalWebApp.package=${{ vars.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE }}" >> src/main/resources/application.properties
-          echo "logging.level.org.springframework={{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }}" >> src/main/resources/application.properties
-          echo "logging.level.org.hibernate={{ vars.LOGGING_LEVEL_ORG_HIBERNATE }}" >> src/main/resources/application.properties
+          echo "logging.level.org.springframework=${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }}" >> src/main/resources/application.properties
+          echo "logging.level.org.hibernate=${{ vars.LOGGING_LEVEL_ORG_HIBERNATE }}" >> src/main/resources/application.properties
           echo "logging.level.com.zaxxer.hikari=${{ vars.LOGGING_LEVEL_COM_ZAXXER_HIKARI }}" >> src/main/resources/application.properties
-          echo "logging.level.root={{ vars.LOGGING_LEVEL_ROOT }}" >> src/main/resources/application.properties
-          echo "logging.level.org.springframework.boot.devtools={{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }}" >> src/main/resources/application.properties
+          echo "logging.level.root=${{ vars.LOGGING_LEVEL_ROOT }}" >> src/main/resources/application.properties
+          echo "logging.level.org.springframework.boot.devtools=${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }}" >> src/main/resources/application.properties
 
 
       - name: Run Test Cases
