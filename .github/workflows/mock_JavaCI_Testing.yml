@@ -18,12 +18,13 @@ on:
     branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
-  # workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   test:
     name: Test Java Application
     runs-on: ubuntu-latest
+    environment: Build
 
     steps:
       - name: Checkout code
