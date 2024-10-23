@@ -49,9 +49,19 @@ jobs:
 
       - name: Set up Application Properties for Tests
         run: |
-          echo "spring.datasource.url=jdbc:mysql://localhost:3306/test_db" >> src/main/resources/application-test.properties
-          echo "spring.datasource.username=aadityaKasbekar" >> src/main/resources/application-test.properties
-          echo "spring.datasource.password=REclassic@3504792" >> src/main/resources/application-test.properties
+          run: |
+          echo "SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/test_db" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_USERNAME=aadityaKasbekar" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_PASSWORD=REclassic@3504792" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver" >> $GITHUB_ENV
+          echo "SPRING_JPA_HIBERNATE_DDL_AUTO=update" >> $GITHUB_ENV
+          echo "SPRING_JPA_SHOW_SQL=true" >> $GITHUB_ENV
+          echo "LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE=DEBUG" >> $GITHUB_ENV
+          echo "LOGGING_LEVEL_ORG_SPRINGFRAMEWORK=INFO" >> $GITHUB_ENV
+          echo "LOGGING_LEVEL_ORG_HIBERNATE=INFO" >> $GITHUB_ENV
+          echo "LOGGING_LEVEL_COM_ZAXXER_HIKARI=INFO" >> $GITHUB_ENV
+          echo "LOGGING_LEVEL_ROOT=ERROR" >> $GITHUB_ENV
+          echo "LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS=INFO" >> $GITHUB_ENV
 
       - name: Run Test Cases
         run: mvn test --file pom.xml
