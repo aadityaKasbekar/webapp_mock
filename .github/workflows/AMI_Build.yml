@@ -106,7 +106,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
 
       # Assume the IAM role using AWS CLI
       - name: Assume IAM Role
@@ -130,9 +130,9 @@ jobs:
       - name: Run `packer validate`
         id: validate
         run: |
-          packer validate -var "subnet_id=${{ secrets.SUBNET_ID }}" cloudNativeAppAMI.pkr.hcl
+          packer validate -var "subnet_id=${{ vars.SUBNET_ID }}" cloudNativeAppAMI.pkr.hcl
 
       - name: Run `packer build`
         id: build
         run: |
-          packer build -var "subnet_id=${{ secrets.SUBNET_ID }}" cloudNativeAppAMI.pkr.hcl
+          packer build -var "subnet_id=${{ vars.SUBNET_ID }}" cloudNativeAppAMI.pkr.hcl
