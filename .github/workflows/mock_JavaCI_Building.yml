@@ -33,6 +33,9 @@ jobs:
           website: oracle.com
           release: 21
           version: 21.0.1
+          
+      - name: Ensure resources directory exists
+        run: mkdir -p src/main/resources
 
       - name: Create application.properties file
         run: |
