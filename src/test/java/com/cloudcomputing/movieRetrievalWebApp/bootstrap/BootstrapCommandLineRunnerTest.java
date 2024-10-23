@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("test")
+// @ActiveProfiles("test")
 class BootstrapCommandLineRunnerTest {
 
   private BootstrapCommandLineRunner bootstrapRunner;
