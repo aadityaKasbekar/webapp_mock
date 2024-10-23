@@ -34,33 +34,12 @@ jobs:
           release: 21
           version: 21.0.1
           
-      - name: Ensure resources directory exists
-        run: mkdir -p src/main/resources
-
-      - name: Create application.properties file
-        run: |
-          echo "spring.application.name=${{ secrets.SPRING_APPLICATION_NAME }}" >> src/main/resources/application.properties
-          echo "spring.datasource.url=${{ secrets.SPRING_DATASOURCE_URL }}" >> src/main/resources/application.properties
-          echo "spring.datasource.driver-class-name=${{ secrets.SPRING_DATASOURCE_DRIVER_CLASS_NAME }}" >> src/main/resources/application.properties
-          echo "spring.datasource.username=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> src/main/resources/application.properties
-          echo "spring.datasource.password=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> src/main/resources/application.properties
-          echo "spring.jpa.hibernate.ddl-auto=${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> src/main/resources/application.properties
-          echo "spring.jpa.show-sql=${{ secrets.SPRING_JPA_SHOW_SQL }}" >> src/main/resources/application.properties
-          echo "logging.level.com.cloudcomputing.movieRetrievalWebApp.package=${{ secrets.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE }}" >> src/main/resources/application.properties
-          echo "logging.level.org.springframework=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }}" >> src/main/resources/application.properties
-          echo "logging.level.org.springframework.boot.devtools=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }}" >> src/main/resources/application.properties
-          echo "logging.level.org.hibernate=${{ secrets.LOGGING_LEVEL_ORG_HIBERNATE }}" >> src/main/resources/application.properties
-          echo "logging.level.com.zaxxer.hikari=${{ secrets.LOGGING_LEVEL_COM_ZAXXER_HIKARI }}" >> src/main/resources/application.properties
-          echo "logging.level.root=${{ secrets.LOGGING_LEVEL_ROOT }}" >> src/main/resources/application.properties
-
-      - name: Verify application.properties file location
-        run: |
-          if [ -f src/main/resources/application.properties ]; then
-            echo "application.properties file created successfully."
-          else
-            echo "application.properties file not found!"
-            exit 1 # Fail the build if the file is not found
-          fi
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
       - name: Building Spring Boot Application
         run: mvn clean install --file pom.xml
