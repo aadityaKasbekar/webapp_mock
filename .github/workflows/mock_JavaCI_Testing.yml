@@ -1,4 +1,4 @@
-name: Java CI Testing with MySQL and Maven
+name: Java CI Testing Maven
 
 on:
   pull_request:
@@ -35,7 +35,7 @@ jobs:
 
       - name: Test MySQL Connectivity
         run: |
-          mysql -h "127.0.0.1" -u "aadityaKasbekar" -p"REclassic@3504792" -e "SHOW DATABASES;"
+          mysql -h "127.0.0.1" -u "${{ secrets.DB_USERNAME }}" -p"${{ secrets.DB_USER_PASSWORD }}" -e "SHOW DATABASES;"
 
       - name: Set up Oracle JDK 21.0.1
         uses: oracle-actions/setup-java@v1
@@ -66,7 +66,6 @@ jobs:
           echo "logging.level.com.zaxxer.hikari=${{ vars.LOGGING_LEVEL_COM_ZAXXER_HIKARI }}" >> src/main/resources/application.properties
           echo "logging.level.root=${{ vars.LOGGING_LEVEL_ROOT }}" >> src/main/resources/application.properties
           echo "logging.level.org.springframework.boot.devtools=${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }}" >> src/main/resources/application.properties
-
 
       - name: Run Test Cases
         run: mvn test --file pom.xml
