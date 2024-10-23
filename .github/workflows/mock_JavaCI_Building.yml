@@ -33,21 +33,30 @@ jobs:
           release: 21
           version: 21.0.1
 
-      - name: Set Application Properties for Building
+      - name: Create application.properties file
         run: |
-          echo "spring.application.name=${{ secrets.SPRING_APPLICATION_NAME }}" >> $GITHUB_ENV
-          echo "spring.datasource.url=${{ secrets.SPRING_DATASOURCE_URL }}" >> $GITHUB_ENV
-          echo "spring.datasource.driver-class-name=${{ secrets.SPRING_DATASOURCE_DRIVER_CLASS_NAME }}" >> $GITHUB_ENV
-          echo "spring.datasource.username=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
-          echo "spring.datasource.password=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
-          echo "spring.jpa.hibernate.ddl-auto=${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> $GITHUB_ENV
-          echo "spring.jpa.show-sql=${{ secrets.SPRING_JPA_SHOW_SQL }}" >> $GITHUB_ENV
-          echo "logging.level.com.cloudcomputing.movieRetrievalWebApp.package=${{ secrets.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE }}" >> $GITHUB_ENV
-          echo "logging.level.org.springframework=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }}" >> $GITHUB_ENV
-          echo "logging.level.org.springframework.boot.devtools=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }}" >> $GITHUB_ENV
-          echo "logging.level.org.hibernate=${{ secrets.LOGGING_LEVEL_ORG_HIBERNATE }}" >> $GITHUB_ENV
-          echo "logging.level.com.zaxxer.hikari=${{ secrets.LOGGING_LEVEL_COM_ZAXXER_HIKARI }}" >> $GITHUB_ENV
-          echo "logging.level.root=${{ secrets.LOGGING_LEVEL_ROOT }}" >> $GITHUB_ENV
+          echo "spring.application.name=${{ secrets.SPRING_APPLICATION_NAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.url=${{ secrets.SPRING_DATASOURCE_URL }}" >> src/main/resources/application.properties
+          echo "spring.datasource.driver-class-name=${{ secrets.SPRING_DATASOURCE_DRIVER_CLASS_NAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.username=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.password=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> src/main/resources/application.properties
+          echo "spring.jpa.hibernate.ddl-auto=${{ secrets.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> src/main/resources/application.properties
+          echo "spring.jpa.show-sql=${{ secrets.SPRING_JPA_SHOW_SQL }}" >> src/main/resources/application.properties
+          echo "logging.level.com.cloudcomputing.movieRetrievalWebApp.package=${{ secrets.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE }}" >> src/main/resources/application.properties
+          echo "logging.level.org.springframework=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }}" >> src/main/resources/application.properties
+          echo "logging.level.org.springframework.boot.devtools=${{ secrets.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }}" >> src/main/resources/application.properties
+          echo "logging.level.org.hibernate=${{ secrets.LOGGING_LEVEL_ORG_HIBERNATE }}" >> src/main/resources/application.properties
+          echo "logging.level.com.zaxxer.hikari=${{ secrets.LOGGING_LEVEL_COM_ZAXXER_HIKARI }}" >> src/main/resources/application.properties
+          echo "logging.level.root=${{ secrets.LOGGING_LEVEL_ROOT }}" >> src/main/resources/application.properties
+
+      - name: Verify application.properties file location
+        run: |
+          if [ -f src/main/resources/application.properties ]; then
+            echo "application.properties file created successfully."
+          else
+            echo "application.properties file not found!"
+            exit 1 # Fail the build if the file is not found
+          fi
 
       - name: Building Spring Boot Application
         run: mvn clean install --file pom.xml
