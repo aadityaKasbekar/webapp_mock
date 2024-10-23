@@ -3,6 +3,7 @@ name: Java CI Testing with MySQL and Maven
 on:
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   test:
