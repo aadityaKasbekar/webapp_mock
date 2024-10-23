@@ -20,12 +20,35 @@ on:
 
 jobs:
   build:
-    name: Build Java Application
+    name: Building Java Application with MySQL
     runs-on: ubuntu-latest # Use the latest Ubuntu runner for the job
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: CloudAppDB
+          MYSQL_USER: ${{ secrets.DB_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.DB_USER_PASSWORD }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4 # Check out the repository code
+
+      - name: Wait for MySQL to start
+        run: |
+          until mysqladmin ping -h "127.0.0.1" --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+        shell: bash
+
+      - name: Test MySQL Connectivity
+        run: |
+          mysql -h "127.0.0.1" -u "aadityaKasbekar" -p"REclassic@3504792" -e "SHOW DATABASES;"
 
       - name: Set up Oracle JDK 21.0.1
         uses: oracle-actions/setup-java@v1 # Set up Oracle JDK 21.0.1
@@ -41,20 +64,21 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Building Spring Boot Application
-        env:
-          SPRING_APPLICATION_NAME: ${{ vars.SPRING_APPLICATION_NAME }} # env variable
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }} # env secret
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }} # env secret
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }} # env secret
-          SPRING_DATASOURCE_DRIVER_CLASS_NAME: ${{ vars.SPRING_DATASOURCE_DRIVER_CLASS_NAME }} # env variable
-          SPRING_JPA_HIBERNATE_DDL_AUTO: ${{ vars.SPRING_JPA_HIBERNATE_DDL_AUTO }} # env variable
-          SPRING_JPA_SHOW_SQL: ${{ vars.SPRING_JPA_SHOW_SQL }} # env variable
-          LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE: ${{ vars.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE }} # env variable
-          LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: ${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }} # env variable
-          LOGGING_LEVEL_ORG_HIBERNATE: ${{ vars.LOGGING_LEVEL_ORG_HIBERNATE }} # env variable
-          LOGGING_LEVEL_COM_ZAXXER_HIKARI: ${{ vars.LOGGING_LEVEL_COM_ZAXXER_HIKARI }} # env variable
-          LOGGING_LEVEL_ROOT: ${{ vars.LOGGING_LEVEL_ROOT }} # env variable
-          LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS: ${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }} # env variable
+      - name: Set up Application Properties for Tests
+        run: |
+          run: |
+          echo "spring.datasource.url=${{ secrets.SPRING_DATASOURCE_URL }}" >> src/main/resources/application.properties
+          echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/main/resources/application.properties
+          echo "spring.datasource.password=${{ secrets.DB_USER_PASSWORD }}" >> src/main/resources/application.properties
+          echo "spring.datasource.driver-class-name=${{ vars.SPRING_DATASOURCE_DRIVER_CLASS_NAME }}" >> src/main/resources/application.properties
+          echo "spring.jpa.hibernate.ddl-auto=${{ vars.SPRING_JPA_HIBERNATE_DDL_AUTO }}" >> src/main/resources/application.properties
+          echo "spring.jpa.show-sql=${{ vars.SPRING_JPA_SHOW_SQL }}" >> src/main/resources/application.properties
+          echo "logging.level.com.cloudcomputing.movieRetrievalWebApp.package=${{ vars.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE }}" >> src/main/resources/application.properties
+          echo "logging.level.org.springframework=${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK }}" >> src/main/resources/application.properties
+          echo "logging.level.org.hibernate=${{ vars.LOGGING_LEVEL_ORG_HIBERNATE }}" >> src/main/resources/application.properties
+          echo "logging.level.com.zaxxer.hikari=${{ vars.LOGGING_LEVEL_COM_ZAXXER_HIKARI }}" >> src/main/resources/application.properties
+          echo "logging.level.root=${{ vars.LOGGING_LEVEL_ROOT }}" >> src/main/resources/application.properties
+          echo "logging.level.org.springframework.boot.devtools=${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS }}" >> src/main/resources/application.properties
 
+      - name: Run Build Application
         run: mvn clean install --file pom.xml
