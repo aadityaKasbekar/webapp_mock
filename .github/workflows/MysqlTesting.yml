@@ -50,18 +50,18 @@ jobs:
       - name: Set up Application Properties for Tests
         run: |
           run: |
-          echo "SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/test_db" >> $GITHUB_ENV
-          echo "SPRING_DATASOURCE_USERNAME=aadityaKasbekar" >> $GITHUB_ENV
-          echo "SPRING_DATASOURCE_PASSWORD=REclassic@3504792" >> $GITHUB_ENV
-          echo "SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver" >> $GITHUB_ENV
-          echo "SPRING_JPA_HIBERNATE_DDL_AUTO=update" >> $GITHUB_ENV
-          echo "SPRING_JPA_SHOW_SQL=true" >> $GITHUB_ENV
-          echo "LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE=DEBUG" >> $GITHUB_ENV
-          echo "LOGGING_LEVEL_ORG_SPRINGFRAMEWORK=INFO" >> $GITHUB_ENV
-          echo "LOGGING_LEVEL_ORG_HIBERNATE=INFO" >> $GITHUB_ENV
-          echo "LOGGING_LEVEL_COM_ZAXXER_HIKARI=INFO" >> $GITHUB_ENV
-          echo "LOGGING_LEVEL_ROOT=ERROR" >> $GITHUB_ENV
-          echo "LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS=INFO" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/test_db" >> src/main/resources/application.properties
+          echo "SPRING_DATASOURCE_USERNAME=aadityaKasbekar" >> src/main/resources/application.properties
+          echo "SPRING_DATASOURCE_PASSWORD=REclassic@3504792" >> src/main/resources/application.properties
+          echo "SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver" >> src/main/resources/application.properties
+          echo "SPRING_JPA_HIBERNATE_DDL_AUTO=update" >> src/main/resources/application.properties
+          echo "SPRING_JPA_SHOW_SQL=true" >> src/main/resources/application.properties
+          echo "LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_PACKAGE=DEBUG" >> src/main/resources/application.properties
+          echo "LOGGING_LEVEL_ORG_SPRINGFRAMEWORK=INFO" >> src/main/resources/application.properties
+          echo "LOGGING_LEVEL_ORG_HIBERNATE=INFO" >> src/main/resources/application.properties
+          echo "LOGGING_LEVEL_COM_ZAXXER_HIKARI=INFO" >> src/main/resources/application.properties
+          echo "LOGGING_LEVEL_ROOT=ERROR" >> src/main/resources/application.properties
+          echo "LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_BOOT_DEVTOOLS=INFO" >> src/main/resources/application.properties
 
       - name: Run Test Cases
         run: mvn test --file pom.xml
