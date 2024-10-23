@@ -18,8 +18,8 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: CloudAppDB
-          MYSQL_USER: aadityaKasbekar
-          MYSQL_PASSWORD: REclassic@3504792
+          MYSQL_USER: ${{ secrets.DB_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.DB_USER_PASSWORD }}
 
     steps:
       - name: Checkout code
