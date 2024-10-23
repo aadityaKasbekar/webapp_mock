@@ -44,4 +44,15 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run Test Cases
+        env:
+          SPRING_DATASOURCE_URL_TEST: ${{ secrets.SPRING_DATASOURCE_URL_TEST }} # env secret
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME_TEST: ${{ vars.SPRING_DATASOURCE_DRIVER_CLASS_NAME_TEST }} # env variable
+          SPRING_DATASOURCE_USERNAME_TEST: ${{ secrets.SPRING_DATASOURCE_USERNAME_TEST }} # env secret
+          SPRING_DATASOURCE_PASSWORD_TEST: ${{ secrets.SPRING_DATASOURCE_PASSWORD_TEST }} # env secret
+          SPRING_JPA_DATABASE_PLATFORM_TEST: ${{ vars.SPRING_JPA_DATABASE_PLATFORM_TEST }} # env variable
+          SPRING_JPA_HIBERNATE_DDL_AUTO_TEST: ${{ vars.SPRING_JPA_HIBERNATE_DDL_AUTO_TEST }} # env variable
+          SPRING_JPA_SHOW_SQL_TEST: ${{ vars.SPRING_JPA_SHOW_SQL_TEST }} # env variable
+          LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_TEST: ${{ vars.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_TEST }} # env variable
+          LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_TEST: ${{ vars.LOGGING_LEVEL_COM_CLOUDCOMPUTING_MOVIERETRIEVALWEBAPP_TEST }} # env variable
+
         run: mvn test --file pom.xml
