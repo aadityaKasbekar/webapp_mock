@@ -1,0 +1,56 @@
+name: Java CI Testing with MySQL and Maven
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    name: Test Java Application with MySQL
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: aadityaKasbekar
+          MYSQL_PASSWORD: REclassic@3504792
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Wait for MySQL to start
+        run: |
+          until mysqladmin ping -h "127.0.0.1" --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+        shell: bash
+
+      - name: Set up Oracle JDK 21.0.1
+        uses: oracle-actions/setup-java@v1
+        with:
+          website: oracle.com
+          release: 21
+          version: 21.0.1
+
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Set up Application Properties for Tests
+        run: |
+          echo "spring.datasource.url=jdbc:mysql://localhost:3306/test_db" >> src/main/resources/application-test.properties
+          echo "spring.datasource.username=aadityaKasbekar" >> src/main/resources/application-test.properties
+          echo "spring.datasource.password=REclassic@3504792" >> src/main/resources/application-test.properties
+
+      - name: Run Test Cases
+        run: mvn test --file pom.xml
