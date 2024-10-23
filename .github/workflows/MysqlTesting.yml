@@ -17,7 +17,7 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
-          MYSQL_DATABASE: test_db
+          MYSQL_DATABASE: CloudAppDB
           MYSQL_USER: aadityaKasbekar
           MYSQL_PASSWORD: REclassic@3504792
 
@@ -32,6 +32,10 @@ jobs:
             sleep 5
           done
         shell: bash
+
+      - name: Test MySQL Connectivity
+        run: |
+          mysql -h "127.0.0.1" -u "aadityaKasbekar" -p"REclassic@3504792" -e "SHOW DATABASES;"
 
       - name: Set up Oracle JDK 21.0.1
         uses: oracle-actions/setup-java@v1
