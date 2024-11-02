@@ -83,10 +83,10 @@ build {
     destination = "/tmp/"
   }
 
-  # provisioner "file" {
-  #   source      = "cloudwatch-config.json"
-  #   destination = "/tmp/cloudwatch-config.json"
-  # }
+  provisioner "file" {
+    source      = "./shellScripts/cloudwatch-config.json"
+    destination = "/tmp/cloudwatch-config.json"
+  }
 
   provisioner "file" {
     sources     = ["./shellScripts/cloud-native-app.service"]
@@ -97,20 +97,20 @@ build {
     script = "./shellScripts/jdkSetup.sh"
   }
 
-  provisioner "shell" {
-    script = "./shellScripts/mysqlSetup.sh"
-  }
+#   provisioner "shell" {
+#     script = "./shellScripts/mysqlSetup.sh"
+#   }
 
   provisioner "shell" {
     script = "./shellScripts/appSetup.sh"
+  }
+
+  provisioner "shell" {
+    script = "./shellScripts/cloudWatchSetup.sh"
   }
 
   post-processor "manifest" {
     output     = "manifest.json"
     strip_path = true
   }
-
-  # provisioner "shell" {
-  #   script = "cloudNativeApp-setup.sh"
-  # }
 }
